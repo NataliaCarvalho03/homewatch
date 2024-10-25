@@ -30,10 +30,10 @@ int DefaultController::startCapturing() {
             std::cout << "Frame captured..." << std::endl;
         }
         
-        cv::namedWindow("Camera", cv::WINDOW_NORMAL);
+        /*cv::namedWindow("Camera", cv::WINDOW_NORMAL);
         cv::resizeWindow("Camera", cv::Size(700, 300));
         cv::imshow("Camera",frame);
-        if ( (char)27 == (char) cv::waitKey(1) ) break;
+        if ( (char)27 == (char) cv::waitKey(1) ) break;*/
         
     }
     return 1;

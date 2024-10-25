@@ -4,6 +4,7 @@
 
 #include "MainPipeline.hpp"
 #include "DefaultController.hpp"
+#include "YoloInference.hpp"
 
 MainPipeline::MainPipeline(std::vector<std::string> urls) {
     camera_url = urls;
@@ -12,10 +13,16 @@ MainPipeline::MainPipeline(std::vector<std::string> urls) {
     } else {
         // a gente ve depois
     }
+    inferenceWorker = new YoloInference("/home/orangepi/Documents/yolov4-tiny/yolov4-tiny.weights", 
+                                        "/home/orangepi/Documents/yolov4-tiny/yolov4-tiny.cfg", 
+                                        "/home/orangepi/Documents/yolov4-tiny/coco.names");
+
 }
 
 void MainPipeline::startMainPipeline() {
     std::thread capture_thread(&DefaultController::startCapturing, this->camera_controller);
-    capture_thread.join();
+    std::thread inferenceThread(&YoloInference::loadModel, this->inferenceWorker, false);
+    inferenceThread.join();
+    //capture_thread.join();
 
 }
